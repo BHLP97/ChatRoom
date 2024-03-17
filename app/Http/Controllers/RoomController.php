@@ -14,11 +14,12 @@ class RoomController extends Controller
     {
         $users = User::all()->except(Auth::id());
         if(Auth::check()){
-            $roomsOwned = Auth::user()->ownsRooms->pluck('id');
-            $roomsJoined = Auth::user()->inRooms->whereNotIn('id', $roomsOwned);
-            $rooms = Room::where('author_id','=', Auth::user()->id)->get();
+            $roomsOwned = Auth::user()->ownsRooms;
+            $roomsJoined = Auth::user()->inRooms->whereNotIn('id', $roomsOwned->pluck('id'));
+            $roomsUneligible = $roomsOwned->merge($roomsJoined)->modelKeys();
+            $roomsSearched = Room::whereNotIn('id', $roomsUneligible)->get();
         }
-        return view('content.chatroom', ['rooms' => $rooms ?? '','roomsJoined' => $roomsJoined ?? '', "users" => $users]);
+        return view('content.chatroom', ['roomsSearched' => $roomsSearched ?? '','roomsJoined' => $roomsJoined ?? '', "users" => $users]);
     }
     public function store(Request $request)
     {
@@ -38,7 +39,7 @@ class RoomController extends Controller
             $roomable->user_id = $member;
             $roomable->save();
         }
-        return response()->json(['success' => 'The room has been created successfully', 'roomName' => $room->name]);
+        return response()->json(['message' => 'The room has been created successfully', "room" => $room], 200);
     }
     public function join(Request $request)
     {
@@ -55,17 +56,20 @@ class RoomController extends Controller
 
     public function search(Request $request){
         $search_room_name = $request->input('search_room_name');
-        $roomsUneligible = Auth::user()->inRooms->pluck('id');
+        $roomsOwned = Auth::user()->ownsRooms->modelKeys();
+        $roomsJoined = Auth::user()->inRooms->modelKeys();
+        $roomsUneligible = array_unique(array_merge($roomsOwned, $roomsJoined));
+
         if ($search_room_name != ""){
             $query = "";
             for($i=0;$i<strlen($search_room_name);$i++){
                 $query = $query.'%'.$search_room_name[$i];
             }
-            $rooms = Room::where('name', 'like', $query.'%')->whereNotIn('id', $roomsUneligible)->get();
+            $roomsSearched = Room::where('name', 'like', $query.'%')->whereNotIn('id', $roomsUneligible)->get();
         } else {
-            $rooms = Room::where('author_id','=', Auth::user()->id)->get();
+            $roomsSearched = Room::whereNotIn('id', $roomsUneligible)->get();
         }
-        return response()->json($rooms, 200);
+        return response()->json($roomsSearched, 200);
     }
     
     public function show()

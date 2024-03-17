@@ -7,7 +7,7 @@
                 <form id="searchRoomForm" class="py-6 px-8">
                     @csrf
                     <!-- Form Title -->
-                    <h3 class="text-2xl text-center font-bold pb-4 text-gray-700">Search Room</h3>
+                    <h3 class="text-2xl text-center font-bold pb-4 text-gray-700">Search for a Room</h3>
                     <!-- Room Name -->
                     <div class="w-full relative">
                         <label for="search_room_name"></label>
@@ -27,7 +27,7 @@
                     <p class="font-semibold">Rooms</p>
                     <div class="w-full" id="search_room_result">
                         @if (Auth::check())
-                            @foreach($rooms as $room)
+                            @foreach($roomsSearched as $room)
                                 <a href="#" class="w-full bg-[#262948] hover:bg-[#4289f3] py-3 px-4 my-4 rounded-lg flex justify-between items-center gap-2" id="{{$room->id}}">
                                     <div class="flex justify-start items-center gap-4">
                                         <div class="w-8 h-8 rounded-full">
@@ -87,7 +87,11 @@
                             </div>
                         </div>
                         <div class="col-span-2">
-                            <p> ${room.name}</p>
+                            <p> ... ... ... ... ...  ... ... ... ... ...</p>
+                        </div>
+                        <div class="absolute top-0 right-0 text-sm mr-2 mt-1  flex justify-end items-center gap-4">
+                            <p class="text-gray-400">2 min ago</p>
+                            <button class="w-5 h-5 text-sm bg-red-500 rounded-full">0</button>
                         </div>
                     </a>`;
                 const joinedRoomsList = $("#rooms-joined");
@@ -110,7 +114,6 @@
             url: '{{ route("room.search") }}',
             data: $('#searchRoomForm').serialize(),
             success: function(response) {
-                console.log(response);
                 let rooms = response;
                 let html = '';
                 for(let i=0; i<rooms.length; i++){
@@ -130,7 +133,7 @@
                         </a>`;
                 }
                 if (rooms.length === 0){
-                    html = `<p class="text-red-400 font-semibold text-center"> Room not found!</p>`;
+                    html = `<p class="text-red-400 font-semibold text-center">No Room Found!</p>`;
                 }
                 $('#search_room_result').html(html);
                 /*   // Display search results

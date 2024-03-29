@@ -299,7 +299,7 @@ use App\Models\User;
                                 <img class="w-8 h-8 rounded-full" src="images/profile1.png" alt="Jese image">
                                 <div class="flex flex-col gap-1 w-full max-w-[320px]">
                                     <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                                        <span class="text-sm font-semibold text-white">Other user</span>
+                                        <span class="text-sm font-semibold text-white">${response.members[message.user_id]}</span>
                                         <span class="text-sm font-normal text-gray-400">11:46</span>
                                     </div>
                                     <div class="flex flex-col leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">

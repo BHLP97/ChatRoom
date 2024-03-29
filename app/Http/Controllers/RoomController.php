@@ -83,7 +83,8 @@ class RoomController extends Controller
     {
         $chatroom = Room::where('id', $id)->get();
         $messages = Message::where('room_id', $id)->get();
-        return response()->json(['messages' => $messages, 'chatroom' => $chatroom], 200);
+        $members = Room::find($id)->users->pluck('name', 'id');
+        return response()->json(['messages' => $messages, "members" => $members, 'chatroom' => $chatroom], 200);
     }
     public function tagUser(Request $request)
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\Roomable;
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,16 +73,24 @@ class RoomController extends Controller
         return response()->json($roomsSearched, 200);
     }
     
-    public function show()
+    public function show($id)
     {
-        
+        $room = Room::find($id);
+        $members = $room->users;
+        return response()->json(["room" => $room, "members" => $members], 200);
     }
-    public function fetchMessages()
+    public function fetchMessages($id)
     {
-        
+        $chatroom = Room::where('id', $id)->get();
+        $messages = Message::where('room_id', $id)->get();
+        return response()->json(['messages' => $messages, 'chatroom' => $chatroom], 200);
     }
-    public function sendMessages()
+    public function tagUser(Request $request)
     {
-        
+        $query = $request->searchTag;
+        $query = str_replace("_", " ", $query);
+        $membersIds = Room::find($request->roomId)->users->pluck('id');
+        $usersTagged = User::whereIn('id', $membersIds)->where('name', 'like', '%'.$query.'%')->whereNot('id', Auth::id())->get();
+        return response()->json($usersTagged, 200);
     }
 }

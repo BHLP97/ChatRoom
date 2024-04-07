@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
-use App\Models\User;
+use App\Events\messageSent;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +17,7 @@ class ChatController extends Controller
         $message->type = "text";
         $message->parent_id = $request->parent_id ?? 0;
         $message->save();
+        event(new messageSent(Auth::user(), $message));
         return response()->json(["message_id" => $message->id, "content" => $message->content], 200);
     }
 

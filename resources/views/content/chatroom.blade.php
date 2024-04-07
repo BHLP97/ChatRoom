@@ -7,6 +7,7 @@ use App\Models\User;
 @section("title")
     ChatRoom
 @endsection
+
 @section("content")
     <div class="app h-screen w-full grid  grid-cols-6 text-base">
         <div class="col-span-1 w-full max-h-screen bg-[#262948] relative">
@@ -170,7 +171,55 @@ use App\Models\User;
     @include('components.modals.loginModal')
     @include('components.modals.registerModal')
     
-
+@endsection
+@section("head")
+    <script>
+        $( document ).ready(function() {
+            var roomIds = $('.room_entry').map(function(){
+                return this.id;
+            }).get();
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+            var pusher = new Pusher('aae3bf4a33b44486cd56', {
+                cluster: 'ap1'
+            });
+            roomIds.forEach(roomId => {
+                var channel = pusher.subscribe('channel-'+roomId);
+                channel.bind('messageSent', function(data) {
+                    if($('#chatModal').find('#roomId').html() == data.message.room_id && $('.userId').attr('id') != data.user.id){
+                        let html = `<div id="${data.message.id}" class="flex items-start gap-2.5 mt-4"> 
+                                <img class="w-8 h-8 rounded-full" src="images/profile1.png" alt="Jese image">
+                                <div class="flex flex-col gap-1 w-full max-w-[320px]">
+                                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                        <span class="text-sm font-semibold text-white">${data.user.name}</span>
+                                        <span class="text-sm font-normal text-gray-400">11:46</span>
+                                    </div>
+                                    <div class="flex flex-col leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+                                        <p class="chatroomMessageContent text-sm font-normal text-white">${data.message.content}</p>
+                                    </div>
+                                    <span class="text-sm font-normal text-gray-400">Delivered</span>
+                                </div>
+                                <button id="dropdownMenuIconButton" onclick="$('#dropdownDots${data.message.id}').toggleClass('hidden')" data-dropdown-toggle="dropdownDots${data.message.id}" data-dropdown-placement="bottom-start" class="inline-flex self-center items-center p-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none text-white bg-gray-900 hover:bg-gray-800 focus:ring-gray-600" type="button">
+                                    <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                                        <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                                    </svg>
+                                </button>
+                                <div id="dropdownDots${data.message.id}" class="z-100 hidden absolute -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                    <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                                        <li>
+                                            <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Reply</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>`;
+                        $('#listMessages').append(html);
+                    } else {
+                        turnOnNotification("User "+data.user.name+" posted '"+data.message.content+"' in room "+data.message.room_id, "chat");
+                    }
+                }); 
+            });
+        });
+    </script>
 @endsection
 @section("script")
     <script>
@@ -325,6 +374,7 @@ use App\Models\User;
                     $('#listMessages').html(html);   
                     $('#chatModal').removeClass('hidden');
                     $('#chatModal').addClass('visible');
+                    $("#listMessages").animate({ scrollTop: $(document).height() }, 1000);
                 },
             });
         }

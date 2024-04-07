@@ -84,7 +84,7 @@
                                             <span class="text-sm font-normal text-gray-400">11:48</span>
                                         </div>
                                         <div class="flex flex-col leading-1.5 p-4 border-gray-200 rounded-s-xl rounded-b-xl bg-gray-700">
-                                            <p class="chatroomMessageContent" text-sm text-right font-normal text-white">${response.content}</p>
+                                            <p class="chatroomMessageContent text-sm text-right font-normal text-white">${response.content}</p>
                                         </div>
                                         <span class="flex text-sm font-normal text-gray-400 justify-end">Delivered</span>
                                     </div>

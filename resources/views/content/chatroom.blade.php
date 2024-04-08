@@ -214,7 +214,7 @@ use App\Models\User;
                             </div>`;
                         $('#listMessages').append(html);
                     } else {
-                        turnOnNotification("User "+data.user.name+" posted '"+data.message.content+"' in room "+data.message.room_id, "chat");
+                        turnOnNotification("User "+data.user.name+" posted '"+data.message.content+"' in room "+data.message.room_id, "chat", data.message.room_id);
                     }
                 }); 
             });
@@ -374,7 +374,7 @@ use App\Models\User;
                     $('#listMessages').html(html);   
                     $('#chatModal').removeClass('hidden');
                     $('#chatModal').addClass('visible');
-                    $("#listMessages").animate({ scrollTop: $(document).height() }, 1000);
+                    $("#listMessages").scrollTop($("#listMessages")[0].scrollHeight);
                 },
             });
         }
@@ -393,16 +393,25 @@ use App\Models\User;
             addNewRoomFormModal.classList.remove('visible');
             addNewRoomFormModal.classList.add('hidden');
         }
-        function turnOnNotification(message, type){
+        function turnOnNotification(message, type, room_id){
             let notificationElement = $('#notification-'+type);
             $('#notification-'+type+'-message').html(message);
+            $('#notification-room-id').html(room_id);
             notificationElement.removeClass('hidden');
             notificationElement.addClass('visible');
             setTimeout(function(){
                 notificationElement.removeClass('visible');
                 notificationElement.addClass('hidden');
-            }, 3000);
+            }, 5000);
         }
+        function redirectNotification(){
+            let room_id = $('#notification-room-id').html();
+            console.log(room_id);
+            openChat(room_id);
+            /* $([document.documentElement, document.body]).animate({
+                scrollTop: $("#"+message_id).offset().top
+            }, 2000); */
+        };
         function createRoom(){
             $("#btn-create-room").addClass("disabled");
             $("#btn-create-room").html('<img src="isProcessing.gif" alt="processing room creation" style="width: 30px; height: 23px;"/>')
@@ -420,12 +429,12 @@ use App\Models\User;
                 },
                 traditional: true,
                 error: function(data){
-                    turnOnNotification(error.message, "error");
+                    turnOnNotification(error.message, "error", 0);
                     $("#btn-create-room").removeClass("disabled");
                     $("#btn-create-room").html('Add new room');
                 },
                 success: function (response) {
-                    turnOnNotification(response.message, "success");
+                    turnOnNotification(response.message, "success", 0);
                     $("#newRoomName").html("");
                     $("#btn-create-room").removeClass("disabled");
                     $("#btn-create-room").html('Submit');

@@ -106,6 +106,8 @@
                                 </div>`
                     $('#listMessages').append(html);
                     $('#messageContent').val('');
+                    // Investigate why the animation doesn't play
+                    // $("#listMessages").animate($("#listMessages")[0].scrollHeight, 1000);
                 },
                 error: function(error) {
                     turnOnNotification(error.message, "error");

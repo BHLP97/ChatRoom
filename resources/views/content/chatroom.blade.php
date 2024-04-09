@@ -126,8 +126,7 @@ use App\Models\User;
                                     <div class="flex justify-between items-center gap-4 px-4 py-4 row-span-1">
                                         <div class="roomName font-bold text-lg text-white">Random Room name</div>
                                         <div class="buttonsRoom">
-                                            <button class="enterRoom" onclick="openModal('chatModal')"><i class="fa-solid fa-door-open"></i></button>
-                                            <button class="leaveRoom"><i class="fa-solid fa-door-closed"></i></button>
+                                            
                                         </div>
                                     </div>
                                     <div class="row-span-3 gap-4 px-4 py-4 text-m text-white text-ellipsis overflow-hidden">
@@ -209,7 +208,7 @@ use App\Models\User;
                                             <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                                         </svg>
                                     </button>
-                                    <div id="dropdownDots${data.message.id}" class="z-100 hidden absolute -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                    <div id="dropdownDots${data.message.id}" class="z-100 hidden -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
                                         <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
                                             <li>
                                                 <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Reply</a>
@@ -336,7 +335,7 @@ use App\Models\User;
                                         <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                                     </svg>
                                 </button>
-                                <div id="dropdownDots${message.id}" class="z-100 hidden absolute -left-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                <div id="dropdownDots${message.id}" class="z-100 hidden -left-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
                                     <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
                                         <li>
                                             <a href="#" onclick="editMessage(${message.id})" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Edit</a>
@@ -365,7 +364,7 @@ use App\Models\User;
                                         <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                                     </svg>
                                 </button>
-                                <div id="dropdownDots${message.id}" class="z-100 hidden absolute -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                <div id="dropdownDots${message.id}" class="z-100 hidden -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
                                     <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
                                         <li>
                                             <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Reply</a>

@@ -1,5 +1,5 @@
 <div class="hidden" id="chatModal">
-    <div class="hidden" id="roomId">{{$room->id ?? ''}}</div>
+    <div class="hidden" id="roomId"></div>
     <div class="absolute top-0 left-0 h-screen w-full opacity-50 bg-black">
     </div>
     <div class="absolute top-0 left-0 h-screen w-full flex justify-center">
@@ -7,7 +7,7 @@
             <div class="w-full h-full bg-[#202441] rounded-lg">
                 <div class="bg-gray-100 w-full h-full flex flex-col max-w-lg mx-auto">
                     <div class="p-4 bg-[#202441] text-white flex justify-center items-center">
-                        <span id='chatroomName'>Chatroom: {{$room->name ?? ''}}</span>
+                        <span id='chatroomName'>Chatroom: Unknown</span>
                         <div class="relative inline-block text-left">
                             <div id="dropdown-content" class="hidden absolute right-0 mt-2 w-48 border border-gray-300 rounded-lg shadow-lg p-2">
                                 <a href="#" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
@@ -93,7 +93,7 @@
                                             <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                                         </svg>
                                     </button>
-                                    <div id="dropdownDots${response.message_id}" class="z-100 hidden absolute -left-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                    <div id="dropdownDots${response.message_id}" class="z-100 hidden -left-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
                                         <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
                                             <li>
                                                 <a href="#" onclick="editMessage(${response.message_id})" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Edit</a>

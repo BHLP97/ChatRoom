@@ -112,53 +112,53 @@ use App\Models\User;
                     @endif
                 </div>
                 <!-- column 3 -->
-                <div id="roomDetails" class="col-span-1 grid grid-rows-5 w-full max-h-screen min-h-20 px-4 bg-[#212540]">
+                <div class="col-span-1 grid grid-rows-5 w-full max-h-screen min-h-20 px-4 bg-[#212540]">
                     @include('components.notification')
-                    <div class="row-span-2">
-                        <div class="w-full max-h-screen bg-[#262948] py-3 px-4 my-4 text-white rounded-lg grid grid-cols-3 gap-2 relative">
-                            <div class="col-span-1">
-                                <div class="flex justify-start items-center gap-4">
-                                    @include('components.avatar', ['avatar_path'=>'images/profile1.png', 'avatar_size'=>'32'])
-                                </div>
-                            </div>
-                            <div class="col-span-2 flex flex-col grid-rows-4">
-                                <div class="flex justify-between items-center gap-4 px-4 py-4 row-span-1">
-                                    <div class="roomName font-bold text-lg text-white">Random Room name</div>
-                                    <div class="buttonsRoom">
-                                        <button class="enterRoom" onclick="openModal('chatModal')"><i class="fa-solid fa-door-open"></i></button>
-                                        <button class="leaveRoom"><i class="fa-solid fa-door-closed"></i></button>
+                    <div id="roomDetails">
+                        <div class="row-span-2">
+                            <div class="w-full max-h-screen bg-[#262948] py-3 px-4 my-4 text-white rounded-lg grid grid-cols-3 gap-2 relative">
+                                <div class="col-span-1">
+                                    <div class="flex justify-start items-center gap-4">
+                                        @include('components.avatar', ['avatar_path'=>'images/profile1.png', 'avatar_size'=>'32'])
                                     </div>
                                 </div>
-                                <div class="row-span-3 gap-4 px-4 py-4 text-m text-white text-ellipsis overflow-hidden">
-                                    Aut iusto sint autem cum. Et numquam nihil ea et illo eos. Culpa ut ad tenetur eum mollitia. Voluptas voluptas consequatur qui dolorem. Ut ipsa iusto illo culpa sed sequi omnis non.
+                                <div class="col-span-2 flex flex-col grid-rows-4">
+                                    <div class="flex justify-between items-center gap-4 px-4 py-4 row-span-1">
+                                        <div class="roomName font-bold text-lg text-white">Random Room name</div>
+                                        <div class="buttonsRoom">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row-span-3 gap-4 px-4 py-4 text-m text-white text-ellipsis overflow-hidden">
+                                        Aut iusto sint autem cum. Et numquam nihil ea et illo eos. Culpa ut ad tenetur eum mollitia. Voluptas voluptas consequatur qui dolorem. Ut ipsa iusto illo culpa sed sequi omnis non.
+                                    </div>
                                 </div>
                             </div>
+                            <form class="max-w-md mx-auto">   
+                                <label for="default-search" class="text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Users" required />
+                                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                                </div>
+                            </form>
                         </div>
-                        <form class="max-w-md mx-auto">   
-                            <label for="default-search" class="text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                    </svg>
+                        <div id="listMembers" class="w-full max-h-screen row-span-3 bg-[#262948] rounded-lg px-4 py-4 mt-4 relative overflow-y-auto">
+                            {{-- @for ($i = 0; $i < 8; $i++)
+                            <a href="#" class="w-full bg-[#272d68] hover:bg-[#4289f3] py-3 px-4 my-4 text-white rounded-lg grid gap-2 relative">
+                                <div class="flex">
+                                    <div class="flex justify-start items-center gap-4 mr-4">
+                                        @include('components.avatar', ['avatar_path'=>'images/profile1.png', 'avatar_size'=>'8'])
+                                    </div>
+                                    <p class="flex items-center font-bold text-ellipsis overflow-hidden">User {{$i}}</p>
                                 </div>
-                                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Users" required />
-                                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <div id="listMembers" class="w-full max-h-screen row-span-3 bg-[#262948] rounded-lg px-4 py-4 mt-4 relative overflow-y-auto">
-                        {{-- @for ($i = 0; $i < 8; $i++)
-                        <a href="#" class="w-full bg-[#272d68] hover:bg-[#4289f3] py-3 px-4 my-4 text-white rounded-lg grid gap-2 relative">
-                            <div class="flex">
-                                <div class="flex justify-start items-center gap-4 mr-4">
-                                    @include('components.avatar', ['avatar_path'=>'images/profile1.png', 'avatar_size'=>'8'])
-                                </div>
-                                <p class="flex items-center font-bold text-ellipsis overflow-hidden">User {{$i}}</p>
-                            </div>
-                        </a>  
-                        @endfor --}}
+                            </a>  
+                            @endfor --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,35 +186,38 @@ use App\Models\User;
             roomIds.forEach(roomId => {
                 var channel = pusher.subscribe('channel-'+roomId);
                 channel.bind('messageSent', function(data) {
-                    if($('#chatModal').find('#roomId').html() == data.message.room_id && $('.userId').attr('id') != data.user.id){
-                        let html = `<div id="${data.message.id}" class="flex items-start gap-2.5 mt-4"> 
-                                <img class="w-8 h-8 rounded-full" src="images/profile1.png" alt="Jese image">
-                                <div class="flex flex-col gap-1 w-full max-w-[320px]">
-                                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                                        <span class="text-sm font-semibold text-white">${data.user.name}</span>
-                                        <span class="text-sm font-normal text-gray-400">11:46</span>
+                    console.log($('#chatModal').find('#roomId').html(), data.message.room_id, $('.userId').attr('id'), data.user.id)
+                    if($('.userId').attr('id') != data.user.id){
+                        if($('#chatModal').find('#roomId').html() != data.message.room_id){
+                            turnOnNotification("User "+data.user.name+" posted '"+data.message.content+"' in room "+data.message.room_id, "chat", data.message.room_id);
+                        } else {
+                            let html = `<div id="${data.message.id}" class="flex items-start gap-2.5 mt-4"> 
+                                    <img class="w-8 h-8 rounded-full" src="images/profile1.png" alt="Jese image">
+                                    <div class="flex flex-col gap-1 w-full max-w-[320px]">
+                                        <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                            <span class="text-sm font-semibold text-white">${data.user.name}</span>
+                                            <span class="text-sm font-normal text-gray-400">11:46</span>
+                                        </div>
+                                        <div class="flex flex-col leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+                                            <p class="chatroomMessageContent text-sm font-normal text-white">${data.message.content}</p>
+                                        </div>
+                                        <span class="text-sm font-normal text-gray-400">Delivered</span>
                                     </div>
-                                    <div class="flex flex-col leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
-                                        <p class="chatroomMessageContent text-sm font-normal text-white">${data.message.content}</p>
+                                    <button id="dropdownMenuIconButton" onclick="$('#dropdownDots${data.message.id}').toggleClass('hidden')" data-dropdown-toggle="dropdownDots${data.message.id}" data-dropdown-placement="bottom-start" class="inline-flex self-center items-center p-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none text-white bg-gray-900 hover:bg-gray-800 focus:ring-gray-600" type="button">
+                                        <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                                            <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                                        </svg>
+                                    </button>
+                                    <div id="dropdownDots${data.message.id}" class="z-100 hidden -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                        <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                                            <li>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Reply</a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <span class="text-sm font-normal text-gray-400">Delivered</span>
-                                </div>
-                                <button id="dropdownMenuIconButton" onclick="$('#dropdownDots${data.message.id}').toggleClass('hidden')" data-dropdown-toggle="dropdownDots${data.message.id}" data-dropdown-placement="bottom-start" class="inline-flex self-center items-center p-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none text-white bg-gray-900 hover:bg-gray-800 focus:ring-gray-600" type="button">
-                                    <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
-                                        <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
-                                    </svg>
-                                </button>
-                                <div id="dropdownDots${data.message.id}" class="z-100 hidden absolute -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
-                                    <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
-                                        <li>
-                                            <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Reply</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>`;
-                        $('#listMessages').append(html);
-                    } else {
-                        turnOnNotification("User "+data.user.name+" posted '"+data.message.content+"' in room "+data.message.room_id, "chat", data.message.room_id);
+                                </div>`;
+                            $('#listMessages').append(html);
+                        }
                     }
                 }); 
             });
@@ -332,7 +335,7 @@ use App\Models\User;
                                         <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                                     </svg>
                                 </button>
-                                <div id="dropdownDots${message.id}" class="z-100 hidden absolute -left-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                <div id="dropdownDots${message.id}" class="z-100 hidden -left-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
                                     <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
                                         <li>
                                             <a href="#" onclick="editMessage(${message.id})" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Edit</a>
@@ -361,7 +364,7 @@ use App\Models\User;
                                         <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                                     </svg>
                                 </button>
-                                <div id="dropdownDots${message.id}" class="z-100 hidden absolute -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
+                                <div id="dropdownDots${message.id}" class="z-100 hidden -right-40 divide-y rounded-lg shadow w-40 bg-gray-700 divide-gray-600">
                                     <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownMenuIconButton">
                                         <li>
                                             <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Reply</a>
